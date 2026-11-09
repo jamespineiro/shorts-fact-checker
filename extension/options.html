@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shorts Fact Checker Settings</title>
+  <style>
+    :root { --bg: #fff; --fg: #111; --muted: #555; --card: #f4f6f8; --accent: #1a73e8; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #202124; --fg: #e8eaed; --muted: #aaa; --card: #2d2e31; --accent: #8ab4f8; } }
+    body { background: var(--bg); color: var(--fg); font: 18px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 24px 16px; }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin-top: 0; }
+    .card { background: var(--card); border-radius: 12px; padding: 16px 18px; margin: 16px 0; }
+    label { display: block; font-weight: 600; margin: 12px 0 6px; }
+    input[type=password], input[type=number], select { font: inherit; width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 1px solid #999; background: var(--bg); color: var(--fg); }
+    .row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+    .row input { width: 22px; height: 22px; }
+    .hint { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+    button { font: inherit; padding: 10px 18px; border-radius: 8px; border: none; background: var(--accent); color: var(--bg); cursor: pointer; margin-right: 8px; }
+    button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    #status { margin-left: 8px; font-weight: 600; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🔎 Shorts Fact Checker</h1>
+  <p class="lead">When you watch a YouTube Short, this checks what it claims and shows a clear ✅ / ⚠️ / ❌ label in the top-left corner.</p>
+
+  <div class="card">
+    <label for="apiKey">Anthropic API key</label>
+    <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off">
+    <p class="hint">Get one at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>. It is stored only in this browser and sent only to Anthropic.</p>
+
+    <label for="model">AI model</label>
+    <select id="model">
+      <option value="claude-opus-5-5">Claude Opus 5.5 — most accurate (default)</option>
+      <option value="claude-sonnet-5-5">Claude Sonnet 5.5 — faster, about half the cost</option>
+      <option value="claude-haiku-5-5">Claude Haiku 5.5 — fastest, cheapest</option>
+    </select>
+
+    <label for="effort">How hard to think</label>
+    <select id="effort">
+      <option value="low">Low — quickest</option>
+      <option value="medium">Medium (default)</option>
+      <option value="high">High — most thorough</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <div class="row"><input id="autoCheck" type="checkbox"><label for="autoCheck" style="margin:0">Check every Short automatically</label></div>
+    <p class="hint">If off, a “Check facts” button appears instead.</p>
+    <label for="dwellSeconds">Only check after watching for (seconds)</label>
+    <input id="dwellSeconds" type="number" min="0" max="30" step="1">
+    <p class="hint">Skips Shorts you scroll past quickly, which saves money.</p>
+  </div>
+
+  <button id="save">Save</button>
+  <button id="clear" class="secondary">Clear saved results</button>
+  <span id="status" role="status"></span>
+</main>
+<script src="options.js"></script>
+</body>
+</html>
