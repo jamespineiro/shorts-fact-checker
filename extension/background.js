@@ -7,7 +7,7 @@
 
 const DEFAULT_SETTINGS = {
   geminiKey: "", // optional personal key; overrides the one shipped in config.json
-  geminiModel: "gemini-3.8-flash",
+  geminiModel: "gemini-3.5-flash-lite",
   autoCheck: true,
   dwellSeconds: 2,
 };
@@ -105,25 +105,39 @@ async function getBundledKey() {
   return bundledKey;
 }
 
-// ---------- Gemini ----------
-async function geminiJSON(system, user, schema, apiKey, model) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-  let res;
+// ---------- Gemini (Interactions API) ----------
+// Free-tier models are often overloaded (503) or out of quota (429); when that
+// happens, the same request is retried once on a second model.
+const FALLBACK_MODEL = "gemini-3.6-flash";
+
+async function geminiRequest(system, user, schema, apiKey, model) {
   try {
-    res = await fetch(url, {
+    return await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey, "Api-Revision": "2026-05-20" },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents: [{ role: "user", parts: [{ text: user }] }],
-        generationConfig: { responseMimeType: "application/json", responseJsonSchema: schema },
+        model,
+        store: false,
+        system_instruction: system,
+        input: user,
+        response_format: { type: "text", mime_type: "application/json", schema },
       }),
     });
   } catch {
     throw new FactCheckError("NETWORK", "Could not reach the fact-checking service. Check your internet connection.");
   }
+}
+
+async function geminiJSON(system, user, schema, apiKey, model) {
+  let res = await geminiRequest(system, user, schema, apiKey, model);
+  if ((res.status === 503 || res.status === 429) && model !== FALLBACK_MODEL) {
+    res = await geminiRequest(system, user, schema, apiKey, FALLBACK_MODEL);
+  }
   if (res.status === 429) {
     throw new FactCheckError("RATE_LIMIT", "Today's free fact-checks are used up. It resets tomorrow.");
+  }
+  if (res.status === 503) {
+    throw new FactCheckError("BUSY", "The free fact-checking service is busy right now. Try again in a minute.");
   }
   if (res.status === 400 || res.status === 401 || res.status === 403 || res.status === 404) {
     const detail = (await res.json().catch(() => ({})))?.error?.message || "";
@@ -133,11 +147,12 @@ async function geminiJSON(system, user, schema, apiKey, model) {
   if (!res.ok) throw new FactCheckError("API", `Fact-check service error (${res.status}). Try again later.`);
 
   const data = await res.json();
-  const candidate = data.candidates?.[0];
-  if (data.promptFeedback?.blockReason || candidate?.finishReason === "SAFETY") {
-    throw new FactCheckError("BLOCKED", "The AI wouldn't check this video.");
-  }
-  const text = (candidate?.content?.parts || []).map((p) => p.text || "").join("");
+  const text = (data.steps || [])
+    .filter((s) => s.type === "model_output")
+    .flatMap((s) => s.content || [])
+    .map((c) => c.text || "")
+    .join("");
+  if (!text) throw new FactCheckError("BLOCKED", "The AI wouldn't check this video.");
   try {
     return JSON.parse(text);
   } catch {

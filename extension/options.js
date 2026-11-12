@@ -1,4 +1,4 @@
-const DEFAULTS = { geminiKey: "", geminiModel: "gemini-3.8-flash", autoCheck: true, dwellSeconds: 2 };
+const DEFAULTS = { geminiKey: "", geminiModel: "gemini-3.5-flash-lite", autoCheck: true, dwellSeconds: 2 };
 const $ = (id) => document.getElementById(id);
 const status = (text) => {
   $("status").textContent = text;

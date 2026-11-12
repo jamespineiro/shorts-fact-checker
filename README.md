@@ -28,12 +28,12 @@ The extension needs one free Gemini API key. You add it once and anyone who inst
 never has to deal with keys.
 
 1. Go to https://aistudio.google.com/apikey and sign in with a Google account.
-2. Click **Create API key** and copy it (it starts with `AIza`). No credit card is needed.
+2. Click **Create API key** and copy it. No credit card is needed.
    Don't turn on billing for that Google project, so the key can never cost money.
 3. Open `extension/config.json` and paste the key in place of `PASTE_YOUR_FREE_GEMINI_KEY_HERE`:
    ```json
    {
-     "geminiApiKey": "AIza..."
+     "geminiApiKey": "your-key-here"
    }
    ```
 
@@ -61,7 +61,7 @@ Clicking its icon opens the settings page.
 | Check every Short automatically | If off, a **Check facts** button appears instead. |
 | Only check after watching for | Skips Shorts you scroll past quickly (default 2 seconds), so the daily limit lasts longer. |
 | Advanced: use your own Gemini key | Overrides the key in `config.json`, for example if the shared daily limit keeps running out. |
-| Advanced: Gemini model name | Default `gemini-3.8-flash`. Change it only if Google retires that model. |
+| Advanced: Gemini model name | Default `gemini-3.5-flash-lite`. If it's busy or out of quota, the extension automatically retries on `gemini-3.6-flash`. Change it only if Google retires that model. |
 | Clear saved results | Results are saved for 7 days so re-watching a Short is free. This clears them. |
 
 ## Updating
