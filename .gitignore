@@ -17,3 +17,7 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# Your Gemini key lives here. Remove this line only if you want the key in the repo
+# so people who download it get a working copy.
+extension/config.json

@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Shorts Fact Checker",
-  "version": "1.1.0",
-  "description": "Automatically fact-checks YouTube Shorts and warns you about false or misleading claims.",
+  "version": "2.0.0",
+  "description": "Free: automatically fact-checks YouTube Shorts and warns you about false or misleading claims.",
   "permissions": [
     "storage"
   ],
   "host_permissions": [
-    "https://api.anthropic.com/*"
+    "https://*.wikipedia.org/*",
+    "https://generativelanguage.googleapis.com/*"
   ],
   "background": {
     "service_worker": "background.js",

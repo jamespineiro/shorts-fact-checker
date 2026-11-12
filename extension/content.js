@@ -23,7 +23,7 @@
 
   let currentVideoId = null;
   let dwellTimer = null;
-  let settings = { autoCheck: true, dwellSeconds: 2, hasApiKey: false };
+  let settings = { autoCheck: true, dwellSeconds: 2 };
   let expanded = false;
 
   // ---------- UI ----------
@@ -149,12 +149,12 @@
   }
 
   function showError(error) {
-    const needsKey = error?.code === "NO_API_KEY";
+    const needsSetup = error?.code === "SETUP";
     show({
       tone: "neutral",
       headHtml: `<div class="icon">ℹ️</div><div class="grow"><div class="title">Couldn't check this video</div></div>`,
       bodyHtml: `<p>${escapeHtml(error?.message || "Something went wrong.")}</p>
-        ${needsKey ? `<button data-action="options">Open settings</button>` : `<button data-action="recheck">Try again</button>`}`,
+        ${needsSetup ? `<button data-action="options">Open settings</button>` : `<button data-action="recheck">Try again</button>`}`,
     });
   }
 
@@ -186,7 +186,7 @@
       headHtml: `<div class="icon">${v.icon}</div><div class="grow"><div class="title">${v.label}</div>
         <div class="headline">${escapeHtml(result.headline)}</div></div>`,
       bodyHtml: `<p class="summary">${escapeHtml(result.summary)}</p>${claimsHtml}${noTranscript}
-        <div class="note">Checked automatically by AI using web search. AI can make mistakes — when something matters, check with a trusted source.</div>
+        <div class="note">Checked automatically by Google's Gemini AI against Wikipedia. AI can make mistakes — when something matters, check with a trusted source.</div>
         <button class="secondary" data-action="recheck">Check again</button>
         <button class="secondary" data-action="dismiss">Close</button>`,
       expandable: true,
@@ -250,9 +250,6 @@
     try {
       settings = await chrome.runtime.sendMessage({ type: "getSettings" });
     } catch {}
-    if (!settings.hasApiKey) {
-      return showError({ code: "NO_API_KEY", message: "Add your Anthropic API key in the extension settings to start fact-checking." });
-    }
     if (!settings.autoCheck) return showManualPrompt();
 
     hide();

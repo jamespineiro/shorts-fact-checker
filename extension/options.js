@@ -1,4 +1,4 @@
-const DEFAULTS = { apiKey: "", model: "claude-opus-5-5", effort: "medium", autoCheck: true, dwellSeconds: 2 };
+const DEFAULTS = { geminiKey: "", geminiModel: "gemini-3.8-flash", autoCheck: true, dwellSeconds: 2 };
 const $ = (id) => document.getElementById(id);
 const status = (text) => {
   $("status").textContent = text;
@@ -6,18 +6,16 @@ const status = (text) => {
 };
 
 chrome.storage.sync.get(DEFAULTS).then((s) => {
-  $("apiKey").value = s.apiKey;
-  $("model").value = s.model;
-  $("effort").value = s.effort;
+  $("geminiKey").value = s.geminiKey;
+  $("geminiModel").value = s.geminiModel;
   $("autoCheck").checked = s.autoCheck;
   $("dwellSeconds").value = s.dwellSeconds;
 });
 
 $("save").addEventListener("click", async () => {
   await chrome.storage.sync.set({
-    apiKey: $("apiKey").value.trim(),
-    model: $("model").value,
-    effort: $("effort").value,
+    geminiKey: $("geminiKey").value.trim(),
+    geminiModel: $("geminiModel").value.trim() || DEFAULTS.geminiModel,
     autoCheck: $("autoCheck").checked,
     dwellSeconds: Math.min(30, Math.max(0, Number($("dwellSeconds").value) || 0)),
   });
