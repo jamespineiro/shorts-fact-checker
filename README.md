@@ -9,7 +9,7 @@ It was built to help older viewers avoid misinformation, like miracle cures, sca
 "the Earth is flat".
 
 > **It's free, but there's a daily limit.** It runs on Gemini's free tier, which has a daily
-> request limit shared by everyone using the same key. Each Short uses 2 requests. If the limit runs
+> request limit shared by everyone using this extension. Each Short uses 2 requests. If the limit runs
 > out, the panel says "Today's free fact-checks are used up", and it resets the next day.
 
 ## How it works
@@ -22,23 +22,11 @@ It doesn't use yt-dlp or any server. Everything happens in your browser:
 4. The extension looks each claim up on Wikipedia, and Gemini compares them, then answers with ✅ true, ⚠️ misleading, or ❌ false, plus a simple explanation and links.
 5. The extension shows that answer in a big box in the corner and remembers it, so the same Short is never checked twice.
 
-## One-time setup (the person who owns the repo)
+## No setup needed
 
-The extension needs one free Gemini API key. You add it once and anyone who installs your copy
-never has to deal with keys.
-
-1. Go to https://aistudio.google.com/apikey and sign in with a Google account.
-2. Click **Create API key** and copy it. No credit card is needed.
-   Don't turn on billing for that Google project, so the key can never cost money.
-3. Open `extension/config.json` and paste the key in place of `PASTE_YOUR_FREE_GEMINI_KEY_HERE`:
-   ```json
-   {
-     "geminiApiKey": "your-key-here"
-   }
-   ```
-
-`extension/config.json` is in `.gitignore`, so your key is **not** uploaded to GitHub. Anyone who
-downloads the repo gets `config.example.json` instead and needs to add their own key the same way.
+A free Gemini API key is already built into the extension (in `extension/config.json`), so you
+**don't need your own key**. Just install it and watch Shorts. The key is on Gemini's free tier
+with no billing attached, so it can't cost anyone money.
 
 ## Install in Chrome
 
@@ -60,14 +48,13 @@ Clicking its icon opens the settings page.
 |---|---|
 | Check every Short automatically | If off, a **Check facts** button appears instead. |
 | Only check after watching for | Skips Shorts you scroll past quickly (default 2 seconds), so the daily limit lasts longer. |
-| Advanced: use your own Gemini key | Overrides the key in `config.json`, for example if the shared daily limit keeps running out. |
+| Advanced: use your own Gemini key | Optional. Overrides the built-in key, for example if the shared daily limit keeps running out. |
 | Advanced: Gemini model name | Default `gemini-3.5-flash-lite`. If it's busy or out of quota, the extension automatically retries on `gemini-3.6-flash`. Change it only if Google retires that model. |
 | Clear saved results | Results are saved for 7 days so re-watching a Short is free. This clears them. |
 
 ## Updating
 
 1. Get the new code into the **same folder** (download the new ZIP or run `git pull`).
-   Your `config.json` isn't touched by `git pull`.
 2. On `chrome://extensions`, click the **↻ reload** icon on the Shorts Fact Checker card.
 3. Refresh any open YouTube tabs.
 
@@ -77,8 +64,7 @@ Clicking its icon opens the settings page.
 |---|---|
 | "Manifest file is missing or unreadable" | You picked the wrong folder. Select the `extension` folder that contains `manifest.json`. |
 | No panel appears on Shorts | Refresh the YouTube tab. Make sure the URL contains `/shorts/`, since regular videos aren't checked. |
-| "No Gemini API key is set up" | Paste a key into `extension/config.json` (see setup), then click ↻ on `chrome://extensions`. |
-| "The fact-checking service rejected the request" | The key is wrong or deleted, or the model name was retired. Check the key, or change the model under Advanced settings. |
+| "The fact-checking service rejected the request" | The built-in key was probably turned off, or the model was retired. Tell the repo owner, or add your own free key from https://aistudio.google.com/apikey under Advanced settings. |
 | "Today's free fact-checks are used up" | The free daily limit ran out. Wait until tomorrow, or add your own key under Advanced settings. |
 | "No captions were available" | Some Shorts have no captions. Only the title and description get checked. |
 | Something else is broken | On `chrome://extensions`, click **service worker** on the extension's card and check the Console. Also check the YouTube tab's DevTools console (F12). |
@@ -92,7 +78,7 @@ Clicking its icon opens the settings page.
 | `extension/content.js` | Notices when you move to a new Short and draws the result panel. |
 | `extension/background.js` | Asks Gemini for the claims, looks them up on Wikipedia, asks Gemini for verdicts, and caches results. |
 | `extension/options.html`, `options.js` | The settings page. |
-| `extension/config.json` | Your Gemini key (not uploaded to GitHub). |
+| `extension/config.json` | The built-in free Gemini key. |
 
 There's no build step. Edit any file, then click ↻ on `chrome://extensions` and refresh YouTube.
 
