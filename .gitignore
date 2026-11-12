@@ -1,2 +1,19 @@
+# Dependencies (reinstall with npm install)
 node_modules/
+
+# Secrets, in case you ever put a key in a file. The extension itself keeps
+# your API key in Chrome's storage, not in any project file.
+.env
+.env.*
+*.key
+
+# Chrome's "Pack extension" signing key: never share this
+*.pem
+*.crx
+
+# Large media (GitHub rejects files over 100 MB)
+*.mov
+*.mp4
+
+# macOS
 .DS_Store

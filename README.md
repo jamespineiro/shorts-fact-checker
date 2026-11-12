@@ -112,15 +112,13 @@ Your API key and settings are kept.
 
 ## How it works
 
-1. **`extension/inject.js`** runs inside the YouTube page and gets captions from YouTube's own
-   player, so no yt-dlp or server is needed. It tries, in order: captions the player already
-   downloaded → the caption track URL → turning captions on so the player fetches them →
-   YouTube's internal API. If a Short has no captions, it uses the title and description.
-2. **`extension/content.js`** notices when you move to a new Short, waits until you've watched for
-   a couple of seconds, and draws the result panel.
-3. **`src/background.js`** (built into `extension/background.js`) sends the captions to
-   Claude Opus 5.5 with web search turned on. Claude returns a structured verdict through a
-   `report_verdict` tool. Results are cached per video for 7 days.
+It doesn't use yt-dlp or any server. Everything happens in your browser:
+
+1. When you're watching a Short, YouTube's video player already has the subtitles (the words people say), so the extension just quietly asks the player for them, like peeking at the script.
+2. If the player hasn't loaded the subtitles yet, the extension briefly turns captions on so the player fetches them, then grabs them.
+3. Once you've watched for 2 seconds, it sends those words to Claude and asks, "Is anything in here not true?"
+4. Claude searches the internet to double-check the claims, then answers with ✅ true, ⚠️ misleading, or ❌ false, plus a simple explanation and links.
+5. The extension shows that answer in a big box in the corner and remembers it, so the same Short is never checked (or paid for) twice.
 
 Your API key is stored in Chrome's extension storage and sent only to `api.anthropic.com`.
 Captions and video details are sent to Anthropic for checking.
