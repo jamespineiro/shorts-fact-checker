@@ -18,3 +18,10 @@ node_modules/
 # macOS
 .DS_Store
 
+
+# Your Gemini key. Never commit this; share it only inside the ZIP from make-zip.sh.
+extension/config.json
+
+# ZIPs built by make-zip.sh (they contain the key)
+dist/
+*.zip
