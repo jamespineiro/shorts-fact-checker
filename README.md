@@ -5,6 +5,8 @@ auto-generated captions, checks the claims with Google's Gemini AI and Wikipedia
 large ✅ / ⚠️ / ❌ panel in the top-left corner of the page. Warnings open on their own with a
 plain-language explanation and links to sources.
 
+Sample video is in the slides: https://docs.google.com/presentation/d/1uJ-dqS4oPw214TMCteDjqg0OgIfIaPg5dLD1NQo33uc/edit?usp=sharing 
+
 It was built to help older viewers avoid misinformation, like miracle cures, scams, or
 "the Earth is flat".
 
