@@ -1,0 +1,20 @@
+SHORTS FACT CHECKER - HOW TO INSTALL (about 2 minutes, no account or key needed)
+
+1. Unzip shorts-fact-checker.zip if you haven't already, and keep the
+   "shorts-fact-checker" folder somewhere permanent (e.g. Documents).
+   Chrome runs the extension from this folder, so don't delete or move it.
+
+2. In Chrome, type  chrome://extensions  in the address bar and press Enter.
+
+3. Turn on "Developer mode" (switch in the top-right corner).
+
+4. Click "Load unpacked" and select the "shorts-fact-checker" folder
+   (the one that contains manifest.json and this file).
+
+TRY IT
+Open a YouTube Short, for example:
+  https://www.youtube.com/shorts/gb24KAy_16I
+After about 2 seconds a fact-check panel appears in the top-left corner.
+Click it to see the explanation and Wikipedia sources.
+
+If a YouTube tab was already open before installing, refresh it first.

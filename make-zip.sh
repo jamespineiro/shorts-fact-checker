@@ -17,4 +17,4 @@ cp -R extension dist/shorts-fact-checker
 rm -f dist/shorts-fact-checker/config.example.json
 (cd dist && zip -qr shorts-fact-checker.zip shorts-fact-checker -x '*.DS_Store')
 rm -rf dist/shorts-fact-checker
-echo "Built dist/shorts-fact-checker.zip. Send it by email or Google Drive, not GitHub."
+echo "Built dist/shorts-fact-checker.zip. Upload it to Google Drive (Anyone with the link) and share that link. Never put it on GitHub."

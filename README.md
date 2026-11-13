@@ -24,11 +24,12 @@ It doesn't use yt-dlp or any server. Everything happens in your browser:
 
 ## Install
 
-There are two ways to get it. If you got a ZIP from me, use the first one. It's ready to go with no key needed.
+There are two ways to get it. If you have the download link from the project submission, use the first one. It's ready to go with no key needed.
 
-### If you got the ZIP from me (no setup)
+### If you have the download link (no setup)
 
-1. Unzip `shorts-fact-checker.zip`. You'll get a folder called `shorts-fact-checker`.
+1. Open the download link from the project submission and download `shorts-fact-checker.zip`,
+   then unzip it. You'll get a folder called `shorts-fact-checker`.
    Put it somewhere permanent, like Documents. Chrome loads the extension from that folder every
    time, so if you delete or move it, the extension stops working.
 2. Type `chrome://extensions` in Chrome's address bar and press Enter.
@@ -37,7 +38,7 @@ There are two ways to get it. If you got a ZIP from me, use the first one. It's 
 5. Open any Short, for example https://www.youtube.com/shorts/gb24KAy_16I. Refresh any YouTube tab
    that was already open. After about 2 seconds a panel appears in the top-left.
 
-Please don't post the ZIP publicly. It contains my free API key.
+The same steps are in `INSTALL.txt` inside the folder. Please don't post the ZIP or its link publicly, because it contains my free API key.
 
 ### If you're downloading from GitHub (needs a free key)
 
@@ -93,6 +94,7 @@ Clicking its icon opens the settings page.
 | `extension/config.json` | The Gemini key. Not on GitHub; it's only in the ZIP. |
 | `extension/config.example.json` | Template for making your own `config.json`. |
 | `make-zip.sh` | Builds the ready-to-use ZIP (with the key) to send to people. |
+| `extension/INSTALL.txt` | Short install steps included in the ZIP. |
 
 There's no build step. Edit any file, then click ↻ on `chrome://extensions` and refresh YouTube.
 
@@ -106,7 +108,8 @@ To give someone a working copy:
 ./make-zip.sh   # builds dist/shorts-fact-checker.zip with the key included
 ```
 
-Send that ZIP by email or Google Drive, never through GitHub.
+Upload that ZIP to Google Drive, set sharing to **Anyone with the link**, and give the link to
+people directly (for example in the project submission). Never put the ZIP or its link on GitHub.
 
 ## Privacy
 
