@@ -24,12 +24,12 @@ It doesn't use yt-dlp or any server. Everything happens in your browser:
 
 ## Install
 
-There are two ways to get it. If you have the download link from the project submission, use the first one. It's ready to go with no key needed.
+There are two ways to get it. The first one is ready to go with no key needed.
 
-### If you have the download link (no setup)
+### Download the ready-to-use ZIP (no setup)
 
-1. Open the download link from the project submission and download `shorts-fact-checker.zip`,
-   then unzip it. You'll get a folder called `shorts-fact-checker`.
+1. **[Download shorts-fact-checker.zip](https://drive.google.com/file/d/1YcHHFuv1MA5K-lW7STmL6AWNDhv0RmuU/view?usp=sharing)**
+   from Google Drive (click the download ⬇ button at the top right), then unzip it. You'll get a folder called `shorts-fact-checker`.
    Put it somewhere permanent, like Documents. Chrome loads the extension from that folder every
    time, so if you delete or move it, the extension stops working.
 2. Type `chrome://extensions` in Chrome's address bar and press Enter.
@@ -38,7 +38,7 @@ There are two ways to get it. If you have the download link from the project sub
 5. Open any Short, for example https://www.youtube.com/shorts/gb24KAy_16I. Refresh any YouTube tab
    that was already open. After about 2 seconds a panel appears in the top-left.
 
-The same steps are in `INSTALL.txt` inside the folder. Please don't post the ZIP or its link publicly, because it contains my free API key.
+The same steps are in `INSTALL.txt` inside the folder.
 
 ### If you're downloading from GitHub (needs a free key)
 
